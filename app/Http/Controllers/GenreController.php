@@ -15,8 +15,8 @@ class GenreController extends Controller
     {
         // 書籍数も一緒に取得
         $genres = Genre::withCount('books')
-                        ->latest()
-                        ->get();
+            ->latest()
+            ->get();
 
         return view('genres.index', compact('genres'));
     }
@@ -50,9 +50,9 @@ class GenreController extends Controller
     public function show(Genre $genre)
     {
         $books = $genre->books()
-                        ->with('genres', 'user')
-                        ->latest()
-                        ->paginate(10);
+            ->with('genres', 'user')
+            ->latest()
+            ->paginate(10);
 
         return view('genres.show', compact('genre', 'books'));
     }

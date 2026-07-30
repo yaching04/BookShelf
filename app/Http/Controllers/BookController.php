@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBookRequest;   // 書籍登録時のバリデーション
 use App\Http\Requests\UpdateBookRequest;  // 書籍更新時のバリデーション
-use App\Models\Book;                      // 書籍モデル
+use App\Models\Book;
+use App\Models\Genre;
+
+                      // 書籍モデル
 
 class BookController extends Controller
 {
@@ -15,8 +18,8 @@ class BookController extends Controller
     {
         // 最新順にページネーションで10件取得
         $books = Book::with('genres', 'user')   // ジャンルと作成者情報も一緒に取得
-                        ->latest()
-                        ->paginate(10);
+            ->latest()
+            ->paginate(10);
 
         return view('books.index', compact('books'));
     }
@@ -26,7 +29,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        $genres = \App\Models\Genre::all();  // ジャンル一覧を取得
+        $genres = Genre::all();  // ジャンル一覧を取得
+
         return view('books.create', compact('genres'));
     }
 
@@ -38,13 +42,13 @@ class BookController extends Controller
         $validated = $request->validated();  // バリデーション済みのデータ
 
         $book = Book::create([
-            'user_id'        => auth()->id(),  // 現在ログイン中のユーザー
-            'title'          => $validated['title'],
-            'author'         => $validated['author'],
-            'isbn'           => $validated['isbn'],
+            'user_id' => auth()->id(),  // 現在ログイン中のユーザー
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'isbn' => $validated['isbn'],
             'published_date' => $validated['published_date'] ?? null,
-            'description'    => $validated['description'] ?? null,
-            'image_url'      => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'image_url' => $validated['image_url'] ?? null,
         ]);
 
         // 選択されたジャンルを紐付け
@@ -70,7 +74,7 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        $genres = \App\Models\Genre::all();
+        $genres = Genre::all();
         $bookGenreIds = $book->genres->pluck('id')->toArray();  // すでに選択されているジャンルID
 
         return view('books.edit', compact('book', 'genres', 'bookGenreIds'));
@@ -84,12 +88,12 @@ class BookController extends Controller
         $validated = $request->validated();
 
         $book->update([
-            'title'          => $validated['title'],
-            'author'         => $validated['author'],
-            'isbn'           => $validated['isbn'],
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'isbn' => $validated['isbn'],
             'published_date' => $validated['published_date'] ?? null,
-            'description'    => $validated['description'] ?? null,
-            'image_url'      => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'image_url' => $validated['image_url'] ?? null,
         ]);
 
         $book->genres()->sync($validated['genres']);

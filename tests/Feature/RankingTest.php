@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Book;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RankingTest extends TestCase
 {
@@ -42,7 +42,7 @@ class RankingTest extends TestCase
         Review::factory()->create([
             'user_id' => $user->id,
             'book_id' => $book->id,
-            'rating'  => 5,
+            'rating' => 5,
         ]);
 
         $response = $this->get('/ranking');

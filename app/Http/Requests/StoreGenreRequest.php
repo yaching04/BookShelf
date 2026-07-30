@@ -22,8 +22,8 @@ class StoreGenreRequest extends FormRequest
     {
         return [
             'name.required' => 'ジャンル名を入力してください。',
-            'name.max'      => 'ジャンル名は255文字以内で入力してください。',
-            'name.unique'   => 'このジャンル名はすでに登録されています。',
+            'name.max' => 'ジャンル名は255文字以内で入力してください。',
+            'name.unique' => 'このジャンル名はすでに登録されています。',
         ];
     }
 }

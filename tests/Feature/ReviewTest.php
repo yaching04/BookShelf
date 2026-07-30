@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Book;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ReviewTest extends TestCase
 {
@@ -19,7 +19,7 @@ class ReviewTest extends TestCase
         $book = Book::factory()->create();
 
         $response = $this->actingAs($user)->post("/books/{$book->id}/reviews", [
-            'rating'  => 5,
+            'rating' => 5,
             'comment' => 'とても良い本でした！',
         ]);
 
@@ -28,7 +28,7 @@ class ReviewTest extends TestCase
         $this->assertDatabaseHas('reviews', [
             'user_id' => $user->id,
             'book_id' => $book->id,
-            'rating'  => 5,
+            'rating' => 5,
             'comment' => 'とても良い本でした！',
         ]);
     }
@@ -40,7 +40,7 @@ class ReviewTest extends TestCase
         $book = Book::factory()->create();
 
         $response = $this->actingAs($user)->post("/books/{$book->id}/reviews", [
-            'rating'  => '',
+            'rating' => '',
             'comment' => 'コメントだけ',
         ]);
 
@@ -58,20 +58,20 @@ class ReviewTest extends TestCase
         $review = Review::factory()->create([
             'user_id' => $user->id,
             'book_id' => $book->id,
-            'rating'  => 3,
+            'rating' => 3,
             'comment' => '普通でした',
         ]);
 
         $response = $this->actingAs($user)->put("/reviews/{$review->id}", [
-            'rating'  => 5,
+            'rating' => 5,
             'comment' => 'やっぱり良かった！',
         ]);
 
         $response->assertRedirect();
 
         $this->assertDatabaseHas('reviews', [
-            'id'      => $review->id,
-            'rating'  => 5,
+            'id' => $review->id,
+            'rating' => 5,
             'comment' => 'やっぱり良かった！',
         ]);
     }
@@ -89,7 +89,7 @@ class ReviewTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)->put("/reviews/{$review->id}", [
-            'rating'  => 1,
+            'rating' => 1,
             'comment' => '改ざん',
         ]);
 

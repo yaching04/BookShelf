@@ -14,8 +14,8 @@ class BookController extends Controller
     public function index(Request $request)
     {
         $query = Book::with('genres', 'user')
-                        ->withCount('reviews')
-                        ->withAvg('reviews', 'rating');
+            ->withCount('reviews')
+            ->withAvg('reviews', 'rating');
 
         // キーワード検索
         if ($request->has('keyword')) {
@@ -52,13 +52,13 @@ class BookController extends Controller
         $validated = $request->validated();
 
         $book = Book::create([
-            'user_id'        => 1, // 基本機能では仮のユーザーID（後で認証対応）
-            'title'          => $validated['title'],
-            'author'         => $validated['author'],
-            'isbn'           => $validated['isbn'],
+            'user_id' => 1, // 基本機能では仮のユーザーID（後で認証対応）
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'isbn' => $validated['isbn'],
             'published_date' => $validated['published_date'] ?? null,
-            'description'    => $validated['description'] ?? null,
-            'image_url'      => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'image_url' => $validated['image_url'] ?? null,
         ]);
 
         $book->genres()->sync($validated['genres']);
@@ -74,12 +74,12 @@ class BookController extends Controller
         $validated = $request->validated();
 
         $book->update([
-            'title'          => $validated['title'],
-            'author'         => $validated['author'],
-            'isbn'           => $validated['isbn'],
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'isbn' => $validated['isbn'],
             'published_date' => $validated['published_date'] ?? null,
-            'description'    => $validated['description'] ?? null,
-            'image_url'      => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'image_url' => $validated['image_url'] ?? null,
         ]);
 
         $book->genres()->sync($validated['genres']);

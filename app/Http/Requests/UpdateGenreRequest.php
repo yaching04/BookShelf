@@ -14,7 +14,7 @@ class UpdateGenreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:genres,name,' . $this->route('genre')->id,
+            'name' => 'required|string|max:255|unique:genres,name,'.$this->route('genre')->id,
         ];
     }
 
@@ -22,8 +22,8 @@ class UpdateGenreRequest extends FormRequest
     {
         return [
             'name.required' => 'ジャンル名を入力してください。',
-            'name.max'      => 'ジャンル名は255文字以内で入力してください。',
-            'name.unique'   => 'このジャンル名はすでに登録されています。',
+            'name.max' => 'ジャンル名は255文字以内で入力してください。',
+            'name.unique' => 'このジャンル名はすでに登録されています。',
         ];
     }
 }

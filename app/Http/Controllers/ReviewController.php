@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreReviewRequest;   // レビュー投稿時のバリデーション
 use App\Http\Requests\UpdateReviewRequest;  // レビュー更新時のバリデーション
-use App\Models\Review;
 use App\Models\Book;
+use App\Models\Review;
 
 class ReviewController extends Controller
 {
@@ -19,7 +19,7 @@ class ReviewController extends Controller
         Review::create([
             'user_id' => auth()->id(),
             'book_id' => $book->id,
-            'rating'  => $validated['rating'],
+            'rating' => $validated['rating'],
             'comment' => $validated['comment'] ?? null,
         ]);
 
@@ -52,7 +52,7 @@ class ReviewController extends Controller
         $validated = $request->validated();
 
         $review->update([
-            'rating'  => $validated['rating'],
+            'rating' => $validated['rating'],
             'comment' => $validated['comment'] ?? null,
         ]);
 

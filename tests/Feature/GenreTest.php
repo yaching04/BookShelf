@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
-use App\Models\Genre;
 use App\Models\Book;
+use App\Models\Genre;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class GenreTest extends TestCase
 {
@@ -73,7 +73,7 @@ class GenreTest extends TestCase
         $response->assertRedirect('/genres');
 
         $this->assertDatabaseHas('genres', [
-            'id'   => $genre->id,
+            'id' => $genre->id,
             'name' => '更新後',
         ]);
     }

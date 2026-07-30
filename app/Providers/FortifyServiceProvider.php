@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
+use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -57,8 +58,9 @@ class FortifyServiceProvider extends ServiceProvider
 
         // ★ ログアウト後のリダイレクト先を書籍一覧に設定
         $this->app->instance(
-            \Laravel\Fortify\Contracts\LogoutResponse::class,
-            new class implements \Laravel\Fortify\Contracts\LogoutResponse {
+            LogoutResponse::class,
+            new class implements LogoutResponse
+            {
                 public function toResponse($request)
                 {
                     return redirect('/books');

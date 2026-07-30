@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('genres', function (Blueprint $table) {
-        $table->id();
-        $table->string('name')->unique();   // ジャンル名（一意）
-        $table->timestamps();
-    });
+        Schema::create('genres', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->unique();   // ジャンル名（一意）
+            $table->timestamps();
+        });
     }
+
     /**
      * Reverse the migrations.
      */

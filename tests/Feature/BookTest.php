@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use App\Models\User;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class BookTest extends TestCase
 {
@@ -55,9 +55,9 @@ class BookTest extends TestCase
         $genre = Genre::factory()->create();
 
         $response = $this->actingAs($user)->post('/books', [
-            'title'  => '',
+            'title' => '',
             'author' => 'テスト著者',
-            'isbn'   => '9781234567890',
+            'isbn' => '9781234567890',
             'genres' => [$genre->id],
         ]);
 
@@ -73,9 +73,9 @@ class BookTest extends TestCase
         $genre = Genre::factory()->create();
 
         $response = $this->actingAs($user)->post('/books', [
-            'title'  => 'テスト本',
+            'title' => 'テスト本',
             'author' => '',
-            'isbn'   => '9781234567890',
+            'isbn' => '9781234567890',
             'genres' => [$genre->id],
         ]);
 
@@ -85,15 +85,15 @@ class BookTest extends TestCase
     }
 
     /** @test */
-    public function 書籍登録でISBNが未入力の場合はエラーになる()
+    public function 書籍登録で_isb_nが未入力の場合はエラーになる()
     {
         $user = User::factory()->create();
         $genre = Genre::factory()->create();
 
         $response = $this->actingAs($user)->post('/books', [
-            'title'  => 'テスト本',
+            'title' => 'テスト本',
             'author' => 'テスト著者',
-            'isbn'   => '',
+            'isbn' => '',
             'genres' => [$genre->id],
         ]);
 
@@ -109,18 +109,18 @@ class BookTest extends TestCase
         $genre = Genre::factory()->create();
 
         $response = $this->actingAs($user)->post('/books', [
-            'title'  => 'テスト本',
+            'title' => 'テスト本',
             'author' => 'テスト著者',
-            'isbn'   => '9781234567890',
+            'isbn' => '9781234567890',
             'genres' => [$genre->id],
         ]);
 
         $response->assertRedirect();
 
         $this->assertDatabaseHas('books', [
-            'title'  => 'テスト本',
+            'title' => 'テスト本',
             'author' => 'テスト著者',
-            'isbn'   => '9781234567890',
+            'isbn' => '9781234567890',
         ]);
     }
 
@@ -135,16 +135,16 @@ class BookTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)->put("/books/{$book->id}", [
-            'title'  => '更新後のタイトル',
+            'title' => '更新後のタイトル',
             'author' => '更新後の著者',
-            'isbn'   => $book->isbn,
+            'isbn' => $book->isbn,
             'genres' => [$genre->id],
         ]);
 
         $response->assertRedirect();
 
         $this->assertDatabaseHas('books', [
-            'id'    => $book->id,
+            'id' => $book->id,
             'title' => '更新後のタイトル',
         ]);
     }
