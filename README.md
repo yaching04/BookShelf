@@ -156,6 +156,11 @@ config/app.php の locale を ja に設定
 lang/ja/ にメッセージファイルを手動配置
 ```
 
+## ER図
+
+<img width="835" height="720" alt="Screenshot 2026-07-25 154341" src="https://github.com/user-attachments/assets/9cb18d64-6ba2-4efc-88a3-9fdeb9797974" />
+
+
 ## APIエンドポイント一覧
 
 GET  /api/v1/books  書籍一覧取得（ページネーション対応）  
