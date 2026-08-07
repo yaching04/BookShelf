@@ -1,12 +1,10 @@
 <x-guest-layout>
     <form method="POST" action="{{ route('login') }}" novalidate>
         @csrf
-
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('メールアドレス')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                autofocus />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" autofocus />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 

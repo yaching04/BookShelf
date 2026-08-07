@@ -8,6 +8,10 @@ use App\Http\Controllers\ReviewController;
 use App\Models\Review;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\ReadingPlanController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\NotificationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,6 +80,35 @@ Route::middleware('auth')->group(function () {
     // ==================== ジャンル関連 ====================
     Route::resource('genres', GenreController::class);
 
+
+    // 読書計画
+    Route::get('/reading-plans', [ReadingPlanController::class, 'index'])->name('reading-plans.index');
+    Route::get('/reading-plans/create', [ReadingPlanController::class, 'create'])->name('reading-plans.create');
+    Route::post('/reading-plans', [ReadingPlanController::class, 'store'])->name('reading-plans.store');
+    Route::get('/reading-plans/{readingPlan}/edit', [ReadingPlanController::class, 'edit'])->name('reading-plans.edit');
+    Route::put('/reading-plans/{readingPlan}', [ReadingPlanController::class, 'update'])->name('reading-plans.update');
+    Route::delete('/reading-plans/{readingPlan}', [ReadingPlanController::class, 'destroy'])->name('reading-plans.destroy');
+    Route::post('/reading-plans/{readingPlan}/complete', [ReadingPlanController::class, 'complete'])->name('reading-plans.complete');
+
+
+
+    Route::get('/reports', function () {
+        return redirect()->route('reading-plans.index');
+    })->name('reports.index');
+
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+
+
+    Route::get('/notifications', function () {
+        return redirect()->route('reading-plans.index');
+    })->name('notifications.index');
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'read'])->name('notifications.read');
+
+    Route::get('/books/isbn/{isbn}', [BookController::class, 'fetchByIsbn'])
+    ->name('books.isbn');
 });
 
 // ★ 書籍詳細は最後に定義（create より後）
