@@ -52,7 +52,7 @@ class BookController extends Controller
         $validated = $request->validated();
 
         $book = Book::create([
-            'user_id' => 1, // 基本機能では仮のユーザーID（後で認証対応）
+            'user_id' => $request->user()->id,
             'title' => $validated['title'],
             'author' => $validated['author'],
             'isbn' => $validated['isbn'],
